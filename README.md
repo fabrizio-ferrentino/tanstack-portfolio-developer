@@ -7,6 +7,36 @@ Showcases my experience, projects, and contact information with full internation
 
 ---
 
+<p align="center">
+  <a href="https://fabrizioferrentino.dev">
+    <img src="https://img.shields.io/badge/Demo-Live%20Preview-blue?style=for-the-badge&logo=vercel" alt="Live Demo" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/fabrizio-ferrentino/tanstack-portfolio-developer/issues">
+    <img src="https://img.shields.io/badge/Report%20Bug-red?style=for-the-badge&logo=github/new?labels=bug" alt="Report Bug" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/fabrizio-ferrentino/tanstack-portfolio-developer/issues">
+    <img src="https://img.shields.io/badge/Request%20Feature-brightgreen?style=for-the-badge&logo=github" alt="Request Feature" />
+  </a>
+</p>
+
+## 📸 Screenshot
+<table width="100%">
+  <tr>
+    <td width="33.3%" align="center">
+      <img src="https://github.com/user-attachments/assets/54551551-f200-4ae2-bf66-95d846044080" alt="Desktop Light View" width="100%" />
+    </td>
+    <td width="33.3%" align="center">
+      <img width="1879" height="929" alt="Screenshot 2026-06-06 150423" src="https://github.com/user-attachments/assets/b3731f0f-dbec-4a85-89dc-eac88d87aa1a" />
+    </td>
+    <td width="33.3%" align="center">
+      <img src="https://github.com/user-attachments/assets/175e4c4e-efa4-43f5-9722-ba4b2767b98f" alt="Alternative View" width="100%" />
+    </td>
+  </tr>
+</table>
+
+
 ## ✨ Features
 
 - ⚡ **Static SPA build** powered by TanStack Start v1 + Vite 7 (SSR-capable, deployed as static on Vercel)
