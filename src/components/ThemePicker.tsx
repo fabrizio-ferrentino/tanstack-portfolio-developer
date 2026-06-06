@@ -1,7 +1,38 @@
-import { useEffect, useRef, useState } from "react";
-import { Check, Palette, X } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Check, Palette, Radiation, X, type LucideIcon } from "lucide-react";
 import { THEMES, THEME_STORAGE_KEY, DEFAULT_THEME, FAVICON_COLORS, buildFaviconDataUrl, type ThemeId } from "@/lib/themes";
 import { cn } from "@/lib/utils";
+
+/** The "special" Terminal theme breaks the Mario Kart naming pattern, so its
+ *  row is rendered on-brand with the theme itself — a tiny CRT — to stand
+ *  apart from the plain swatch rows. */
+type SpecialRow = {
+  style: CSSProperties;
+  Icon: LucideIcon;
+  /** text color class for the theme name */
+  name: string;
+  /** hex accent used for the icon and the active check */
+  accent: string;
+  ringActive: string;
+  ringIdle: string;
+  swatchRing: string;
+};
+
+const SPECIAL_ROWS: Partial<Record<ThemeId, SpecialRow>> = {
+  terminal: {
+    style: {
+      backgroundColor: "#0a0f0a",
+      backgroundImage:
+        "repeating-linear-gradient(to bottom, rgba(74,240,122,0.1) 0px, rgba(74,240,122,0.1) 1px, transparent 1px, transparent 3px)",
+    },
+    Icon: Radiation,
+    name: "text-[#c8ffd6]",
+    accent: "#4af07a",
+    ringActive: "ring-[#4af07a]/80",
+    ringIdle: "ring-[#4af07a]/40 hover:ring-[#9bffb0]/70",
+    swatchRing: "ring-white/15",
+  },
+};
 
 function applyTheme(id: ThemeId) {
   if (typeof document === "undefined") return;
@@ -125,36 +156,77 @@ export function ThemePicker() {
           </button>
         </div>
 
-        <ul className="max-h-[60vh] overflow-auto p-2 pt-1">
-          {THEMES.map((theme) => {
+        <ul className="max-h-[60vh] space-y-1 overflow-auto p-2 pt-1">
+          {THEMES.map((theme, idx) => {
             const isActive = theme.id === active;
+            const cfg = SPECIAL_ROWS[theme.id];
+            // Show the "Special" divider once, before the first special row.
+            const prevSpecial =
+              idx > 0 && Boolean(SPECIAL_ROWS[THEMES[idx - 1].id]);
+            const showDivider = Boolean(cfg) && !prevSpecial;
             return (
               <li key={theme.id}>
+                {showDivider && (
+                  <div
+                    className="my-1.5 flex items-center gap-2 px-1"
+                    aria-hidden="true"
+                  >
+                    <span className="h-px flex-1 bg-border" />
+                    <span className="font-mono-tight text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Special
+                    </span>
+                    <span className="h-px flex-1 bg-border" />
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={() => selectTheme(theme.id)}
                   aria-checked={isActive}
                   role="radio"
                   className={cn(
-                    "group flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5",
-                    "text-left transition-colors",
-                    isActive
-                      ? "bg-foreground/[0.06]"
-                      : "hover:bg-foreground/[0.04]",
+                    "group flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left",
+                    cfg
+                      ? cn(
+                          "relative overflow-hidden ring-1 transition-all",
+                          isActive ? cfg.ringActive : cfg.ringIdle,
+                        )
+                      : cn(
+                          "transition-colors",
+                          isActive
+                            ? "bg-foreground/[0.06]"
+                            : "hover:bg-foreground/[0.04]",
+                        ),
                   )}
+                  style={cfg?.style}
                 >
-                  <span
-                    className={cn(
-                      "font-mono-tight text-xs uppercase tracking-wider",
-                      isActive ? "text-primary" : "text-foreground/80",
+                  <span className="flex items-center gap-2">
+                    {cfg && (
+                      <cfg.Icon
+                        className="h-3.5 w-3.5"
+                        style={{ color: cfg.accent }}
+                        aria-hidden="true"
+                      />
                     )}
-                  >
-                    {theme.name}
+                    <span
+                      className={cn(
+                        "font-mono-tight text-xs uppercase tracking-wider",
+                        cfg
+                          ? cfg.name
+                          : isActive
+                            ? "text-primary"
+                            : "text-foreground/80",
+                      )}
+                    >
+                      {theme.name}
+                    </span>
                   </span>
 
                   <span className="flex items-center gap-1.5">
                     <span
-                      className="flex overflow-hidden rounded-full ring-1 ring-foreground/10"
+                      className={cn(
+                        "flex overflow-hidden rounded-full ring-1",
+                        cfg ? cfg.swatchRing : "ring-foreground/10",
+                      )}
                       aria-hidden="true"
                     >
                       {theme.swatches.map((c, i) => (
@@ -166,7 +238,10 @@ export function ThemePicker() {
                       ))}
                     </span>
                     {isActive && (
-                      <Check className="h-3.5 w-3.5 text-primary" />
+                      <Check
+                        className={cn("h-3.5 w-3.5", !cfg && "text-primary")}
+                        style={cfg ? { color: cfg.accent } : undefined}
+                      />
                     )}
                   </span>
                 </button>

@@ -194,56 +194,389 @@
   --ring: oklch(0.78 0.16 65);
 }
 
-[data-theme="choco"] {
-  --paper: oklch(0.42 0.025 40);
-  --ink: oklch(0.97 0.01 70);
-  --warm: oklch(0.36 0.025 38);
-  --rule: oklch(0.28 0.025 35);
+[data-theme="terminal"] {
+  /* Pip-Boy theme — bright phosphor-green CRT palette (the original committed
+     colors; hue ~150). */
+  --paper: oklch(0.17 0.025 150);          /* near-black CRT */
+  --ink: oklch(0.86 0.2 152);              /* phosphor green */
+  --warm: oklch(0.21 0.03 150);            /* raised panel */
+  --rule: oklch(0.42 0.09 150);            /* dim green rule */
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.36 0.025 38);
+  --card: oklch(0.2 0.03 150);
   --card-foreground: var(--ink);
-  --popover: oklch(0.36 0.025 38);
+  --popover: oklch(0.2 0.03 150);
   --popover-foreground: var(--ink);
-  --primary: oklch(0.78 0.1 45);
-  --primary-foreground: oklch(0.25 0.025 38);
-  --secondary: oklch(0.74 0.1 0);
-  --secondary-foreground: oklch(0.25 0.025 38);
-  --muted: oklch(0.34 0.022 38);
-  --muted-foreground: oklch(0.78 0.06 45);
-  --accent: oklch(0.74 0.1 0);
-  --accent-foreground: oklch(0.25 0.025 38);
-  --destructive: oklch(0.6 0.2 27);
-  --destructive-foreground: oklch(0.97 0.01 70);
+  --primary: oklch(0.9 0.21 150);          /* bright phosphor */
+  --primary-foreground: oklch(0.16 0.02 150);
+  --secondary: oklch(0.5 0.12 150);
+  --secondary-foreground: oklch(0.16 0.02 150);
+  --muted: oklch(0.24 0.035 150);
+  --muted-foreground: oklch(0.7 0.13 150);
+  --accent: oklch(0.86 0.2 152);
+  --accent-foreground: oklch(0.16 0.02 150);
+  --destructive: oklch(0.62 0.21 27);
+  --destructive-foreground: oklch(0.16 0.02 150);
   --border: var(--rule);
   --input: var(--rule);
-  --ring: oklch(0.78 0.1 45);
+  --ring: oklch(0.86 0.2 152);
+
+  /* Everything monospace — headings and body. */
+  --font-display: var(--font-mono);
+  --font-sans: var(--font-mono);
 }
 
-[data-theme="moomoo"] {
-  --paper: oklch(0.97 0.03 95);
-  --ink: oklch(0.28 0.1 270);
-  --warm: oklch(0.93 0.04 70);
-  --rule: oklch(0.88 0.05 60);
-  --background: var(--paper);
-  --foreground: var(--ink);
-  --card: oklch(0.95 0.03 90);
-  --card-foreground: var(--ink);
-  --popover: oklch(0.95 0.03 90);
-  --popover-foreground: var(--ink);
-  --primary: oklch(0.74 0.16 0);
-  --primary-foreground: oklch(0.97 0.03 95);
-  --secondary: oklch(0.84 0.08 210);
-  --secondary-foreground: var(--ink);
-  --muted: oklch(0.92 0.04 70);
-  --muted-foreground: oklch(0.45 0.08 250);
-  --accent: oklch(0.84 0.08 210);
-  --accent-foreground: var(--ink);
-  --destructive: oklch(0.6 0.2 27);
-  --destructive-foreground: oklch(0.97 0.03 95);
-  --border: var(--rule);
-  --input: var(--rule);
-  --ring: oklch(0.74 0.16 0);
+/* Terminal — phosphor glow with a faint RGB chromatic fringe on all text. */
+[data-theme="terminal"] body {
+  text-shadow:
+    0 0 2px rgba(74, 240, 122, 0.3),
+    0.4px 0 rgba(255, 40, 90, 0.18),
+    -0.4px 0 rgba(40, 170, 255, 0.18);
+}
+
+/* CRT overlay — scanlines, vignette (tube curvature), a rolling bright band
+   and a faint flicker, like an old cathode-ray TV. Pure CSS, scoped to the
+   Terminal theme; pointer-events:none so it never blocks clicks, and it sits
+   below the blinking cursor follower (z 9999). */
+[data-theme="terminal"] body::before,
+[data-theme="terminal"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+/* Static layer: scanlines + corner vignette. */
+[data-theme="terminal"] body::before {
+  background:
+    radial-gradient(
+      130% 130% at 50% 50%,
+      transparent 58%,
+      rgba(0, 0, 0, 0.45) 100%
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.22) 0px,
+      rgba(0, 0, 0, 0.22) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+/* Animated layer: a soft band that rolls down + a subtle flicker. */
+[data-theme="terminal"] body::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(120, 255, 160, 0) 0%,
+    rgba(120, 255, 160, 0.05) 50%,
+    rgba(120, 255, 160, 0) 100%
+  );
+  background-size: 100% 40%;
+  background-repeat: no-repeat;
+  animation:
+    crt-roll 7s linear infinite,
+    crt-flicker 0.18s steps(2, end) infinite;
+}
+@keyframes crt-roll {
+  0% {
+    background-position: 0 -45%;
+  }
+  100% {
+    background-position: 0 145%;
+  }
+}
+@keyframes crt-flicker {
+  0% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="terminal"] body::after {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Prompt accent: prefix section kickers like a shell prompt (> KICKER). */
+[data-theme="terminal"] .kicker::before {
+  content: "> ";
+  opacity: 0.7;
+}
+
+/* Inverse-video: inline links fill with a solid block + dark text on hover,
+   like highlighting a word in a terminal. */
+[data-theme="terminal"] .link-underline {
+  transition:
+    background-size 0.25s ease,
+    color 0.2s ease;
+}
+[data-theme="terminal"] .link-underline:hover {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-position: 0 0;
+  background-size: 100% 100%;
+  color: var(--primary-foreground);
+}
+
+/* Only in Terminal, the work detail Live Preview / View Code buttons shed their
+   pill chrome + icon and behave exactly like the home inline links: an underline
+   at rest, inverse-video on hover. In every other theme `.term-link` does
+   nothing, so they stay the normal pill buttons. */
+[data-theme="terminal"] .term-link {
+  gap: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: var(--foreground);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition:
+    background-size 0.25s ease,
+    color 0.2s ease;
+}
+[data-theme="terminal"] .term-link svg {
+  display: none;
+}
+[data-theme="terminal"] .term-link:hover {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-position: 0 0;
+  background-size: 100% 100%;
+  color: var(--primary-foreground);
+}
+
+/* Bracketed CTAs: [ label ] revealed on hover. Brackets always reserve their
+   space (transparent) so there's no layout shift. */
+[data-theme="terminal"] .term-brackets::before,
+[data-theme="terminal"] .term-brackets::after {
+  opacity: 0;
+  color: var(--primary);
+  transition: opacity 0.2s ease;
+}
+[data-theme="terminal"] .term-brackets::before {
+  content: "[ ";
+}
+[data-theme="terminal"] .term-brackets::after {
+  content: " ]";
+}
+[data-theme="terminal"] .term-brackets:hover::before,
+[data-theme="terminal"] .term-brackets:hover::after {
+  opacity: 1;
+}
+/* In Terminal, pill action buttons (View Code, Live Preview, …) collapse into
+   plain bracketed text links: strip the pill chrome, gap and icon. */
+[data-theme="terminal"] .term-brackets {
+  gap: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+[data-theme="terminal"] .term-brackets svg {
+  display: none;
+}
+
+/* In Terminal, stack / technology chips drop the pill and render as
+   [bracketed] tokens, like a list in code. */
+[data-theme="terminal"] .term-chip {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+[data-theme="terminal"] .term-chip::before {
+  content: "[";
+  margin-right: 0.1em;
+  color: var(--primary);
+  opacity: 0.6;
+}
+[data-theme="terminal"] .term-chip::after {
+  content: "]";
+  margin-left: 0.1em;
+  color: var(--primary);
+  opacity: 0.6;
+}
+
+/* Footer text links + the header logo ("Fabrizio.") reveal [ label ] on hover
+   (the CTA motif). Absolutely-positioned pseudos so they reserve NO space — the
+   text never shifts (using `.term-brackets` here would push the logo right). */
+[data-theme="terminal"] footer a:not([aria-label]),
+[data-theme="terminal"] .term-logo {
+  position: relative;
+}
+[data-theme="terminal"] footer a:not([aria-label])::before,
+[data-theme="terminal"] footer a:not([aria-label])::after,
+[data-theme="terminal"] .term-logo::before,
+[data-theme="terminal"] .term-logo::after {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  color: var(--primary);
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+[data-theme="terminal"] footer a:not([aria-label])::before,
+[data-theme="terminal"] .term-logo::before {
+  content: "[";
+  right: 100%;
+  margin-right: 0.25em;
+}
+[data-theme="terminal"] footer a:not([aria-label])::after,
+[data-theme="terminal"] .term-logo::after {
+  content: "]";
+  left: 100%;
+  margin-left: 0.25em;
+}
+[data-theme="terminal"] footer a:not([aria-label]):hover::before,
+[data-theme="terminal"] footer a:not([aria-label]):hover::after,
+[data-theme="terminal"] .term-logo:hover::before,
+[data-theme="terminal"] .term-logo:hover::after {
+  opacity: 1;
+}
+
+/* Pip-Boy desktop nav = the Pip-Boy bottom tab bar: tabs joined by — dashes,
+   and the active tab enclosed in a thin outline box (no fill). Hover dims the
+   box. */
+[data-theme="terminal"] .nav-underline {
+  display: none;
+}
+[data-theme="terminal"] header nav {
+  gap: 1.7rem;
+}
+[data-theme="terminal"] header nav a {
+  position: relative;
+  padding: 0.1em 0.5em;
+  border: 1px solid transparent;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+/* dash connector sitting in the gap to the next tab (absolute → no layout shift) */
+[data-theme="terminal"] header nav a:not(:last-of-type)::after {
+  content: "—";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translate(0.5rem, -50%);
+  color: var(--rule);
+  pointer-events: none;
+}
+[data-theme="terminal"] header nav a:hover {
+  border-color: color-mix(in oklab, var(--primary) 45%, transparent);
+  color: var(--primary);
+}
+[data-theme="terminal"] header nav a[data-active="true"] {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Pip-Boy mobile menu = the Pip-Boy data list: the active row and the hovered
+   row are enclosed in a thin green outline box (no fill); text stays green.
+   The `border: …transparent` also drops the default row dividers in this theme. */
+[data-theme="terminal"] .term-menu a {
+  padding-inline: 0.6rem;
+  border: 1px solid transparent;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+[data-theme="terminal"] .term-menu a:hover,
+[data-theme="terminal"] .term-menu a[data-active="true"] {
+  border-color: var(--primary);
+}
+
+/* On-theme cursor: native-style green cursors via CSS `url()` SVG (no JS) — a
+   phosphor-green arrow at native size by default, and over interactive elements
+   the classic pixelated old-school Windows pointing HAND (blocky stepped
+   silhouette), tinted to the theme rather than the modern OS hand. The hand
+   uses the brighter green fill so it stays visible on the green inverse-video
+   hover blocks; the dark outline keeps both readable on any background. Falls
+   back to the native arrow/hand if the SVG can't load. */
+[data-theme="terminal"] {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='19' viewBox='0 0 13 19'%3E%3Cpath d='M1,1 L1,15.8 L4.8,12.4 L7.1,18 L9.1,17.2 L6.9,11.7 L11.8,11.7 Z' fill='%234af07a' stroke='%2304120a' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E")
+      1 1,
+    auto;
+}
+[data-theme="terminal"] a,
+[data-theme="terminal"] button,
+[data-theme="terminal"] summary,
+[data-theme="terminal"] label,
+[data-theme="terminal"] [role="button"],
+[data-theme="terminal"] [role="radio"],
+[data-theme="terminal"] .cursor-pointer {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='27' viewBox='0 0 1774 3000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0,2400) scale(0.1,-0.1)'%3E%3Cpath fill='%23c8ffd6' d='M5220 23480 l0 -520 -522 -2 -523 -3 -2 -4695 c-2 -2582 -3 -4930 -3 -5217 l0 -523 -520 0 -520 0 0 525 0 525 -1562 -3 -1563 -2 0 -1565 0 -1565 518 -3 517 -2 0 -520 0 -520 525 0 525 0 0 -1045 0 -1045 520 0 520 0 0 -1040 0 -1040 520 0 520 0 0 -522 c0 -288 0 -758 0 -1046 l0 -522 525 0 525 0 0 -1565 0 -1565 5215 0 5215 0 0 1565 0 1565 525 0 525 0 0 1565 0 1565 520 0 520 0 0 4175 0 4175 -520 0 -520 0 0 520 0 520 -525 0 -525 0 0 525 0 525 -1040 0 -1040 0 0 520 0 520 -1565 0 -1565 0 0 520 0 520 -1045 0 -1045 0 0 2090 0 2090 -525 0 -525 0 0 520 0 520 -1040 0 -1040 0 0 -520z'/%3E%3Cpath fill='%2304120a' d='M5220 23480 l0 -520 -522 -2 -523 -3 -2 -4695 c-2 -2582 -3 -4930 -3 -5217 l0 -523 -520 0 -520 0 0 525 0 525 -1562 -3 -1563 -2 0 -1565 0 -1565 518 -3 517 -2 0 -520 0 -520 525 0 525 0 0 -1045 0 -1045 520 0 520 0 0 -1040 0 -1040 520 0 520 0 0 -522 c0 -288 0 -758 0 -1046 l0 -522 525 0 525 0 0 -1565 0 -1565 5215 0 5215 0 0 1565 0 1565 525 0 525 0 0 1565 0 1565 520 0 520 0 0 4175 0 4175 -520 0 -520 0 0 520 0 520 -525 0 -525 0 0 525 0 525 -1040 0 -1040 0 0 520 0 520 -1565 0 -1565 0 0 520 0 520 -1045 0 -1045 0 0 2090 0 2090 -525 0 -525 0 0 520 0 520 -1040 0 -1040 0 0 -520z m2080 -5215 l0 -4695 525 0 525 0 0 2085 0 2085 1040 0 1040 0 0 -2085 0 -2085 525 0 525 0 0 1565 0 1565 1040 0 1040 0 2 -2087 3 -2088 523 -3 522 -2 0 1565 0 1565 520 0 520 0 0 -520 0 -520 520 0 520 0 0 -4175 0 -4175 -520 0 -520 0 0 -1565 0 -1565 -520 0 -520 0 -2 -1043 -3 -1042 -4172 -3 -4173 -2 0 1045 0 1045 -520 0 -520 0 0 1045 0 1045 -525 0 -525 0 0 1045 0 1045 -520 0 -520 0 0 1040 0 1040 -520 0 -520 0 -2 523 -3 522 -522 3 -523 2 0 1040 0 1040 1045 0 1045 0 0 -520 0 -520 520 0 520 0 0 -1045 0 -1045 525 0 525 0 0 6785 0 6785 1040 0 1040 0 0 -4695z'/%3E%3C/g%3E%3C/svg%3E")
+      6 1,
+    pointer;
+}
+
+/* The Terminal theme recolors content imagery to match the palette (duotone). */
+[data-theme="terminal"] img {
+  filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4) brightness(0.68)
+    contrast(1.1);
+}
+
+/* In Pip-Boy the footer's heart/coffee icons shed their fixed red/amber colours
+   and turn green like the rest of the monochrome UI. The heart uses
+   `fill-current` and the coffee is stroke-based, so overriding `color` recolors
+   both. Other themes keep the original red/amber. */
+[data-theme="terminal"] .footer-emote {
+  color: var(--primary);
+}
+
+/* Pip-Boy "data list": hovering a list row (Works rows + Contact links) selects
+   it inverse-video — the whole row fills phosphor green and all its text (year,
+   title, → arrow, label, value, note, stack) goes dark, like a highlighted entry
+   on the Pip-Boy screen. Any thumbnail dims so the green bar reads cleanly. Only
+   this theme; others keep their normal hover. Shared via the `.term-row` class. */
+[data-theme="terminal"] .term-row {
+  border-radius: 0;
+}
+[data-theme="terminal"] .term-row:hover {
+  background: var(--primary);
+}
+[data-theme="terminal"] .term-row:hover,
+[data-theme="terminal"] .term-row:hover * {
+  color: var(--primary-foreground);
+  border-color: transparent;
+}
+[data-theme="terminal"] .term-row:hover img {
+  opacity: 0.55;
+  mix-blend-mode: luminosity;
+}
+
+/* Pip-Boy "Featured Works" cards (home) select inverse-video on hover, the same
+   motif as the Works/Contact data-list rows: a phosphor-green veil floods the
+   tile, the duotone cover drops to luminosity, and the title + description go
+   dark — like a highlighted thumbnail on the Pip-Boy screen. At rest the card
+   is a flat tile with a faint green selection outline (the CRT is flat, so no
+   rounded corners, lift, or drop shadow). Only this theme; others keep the
+   normal lift-and-zoom hover. Shared via the `.term-card` class. */
+[data-theme="terminal"] .term-card {
+  border-radius: 0;
+  box-shadow: none !important;
+  transition: border-color 0.3s ease;
+}
+[data-theme="terminal"] .term-card:hover {
+  transform: none;
+  border-color: var(--primary);
+}
+/* recolour the hover veil from black → phosphor green */
+[data-theme="terminal"] .term-card .term-card-veil {
+  background: var(--primary);
+}
+/* dim the cover image so the green bar reads cleanly */
+[data-theme="terminal"] .term-card:hover img {
+  opacity: 0.55;
+  mix-blend-mode: luminosity;
+}
+/* title + description go dark over the green veil */
+[data-theme="terminal"] .term-card:hover h3,
+[data-theme="terminal"] .term-card:hover p {
+  color: var(--primary-foreground);
 }
 
 [data-theme="bowser"] {

@@ -23,17 +23,17 @@ function PrivacyPage() {
     <section className="container-prose pt-16 sm:pt-24 pb-24">
       <Link
         to="/"
-        className="inline-flex items-center font-mono-tight text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+        className="term-logo inline-flex items-center font-mono-tight text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
       >
         {t("privacy.backHome")}
       </Link>
-      <p className="font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-6">
+      <p className="kicker font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-6">
         {lang === "it" ? "Informativa" : "Legal"}
       </p>
       <h1 className="font-display text-[clamp(2.5rem,7vw,5rem)] leading-[1] tracking-[-0.03em] font-medium">
         Privacy Policy<span className="text-primary">.</span>
       </h1>
-      <p className="mt-4 font-mono-tight text-sm text-muted-foreground">
+      <p className="kicker mt-4 font-mono-tight text-sm text-muted-foreground">
         {lang === "it" ? "Ultimo aggiornamento" : "Last updated"}: {updated}
       </p>
 
@@ -55,7 +55,7 @@ function H2({ children }: { children: React.ReactNode }) {
 function ItalianPolicy() {
   return (
     <>
-      <p>
+      <p className="kicker">
         Sostituisci questa sezione con una informativa reale, redatta da un professionista, prima di pubblicare il sito.
       </p>
     </>
@@ -65,7 +65,7 @@ function ItalianPolicy() {
 function EnglishPolicy() {
   return (
     <>
-      <p>
+      <p className="kicker">
         Replace this section with your actual privacy policy, reviewed by a legal professional, before publishing your site.
       </p>
     </>

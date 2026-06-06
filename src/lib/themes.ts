@@ -10,10 +10,9 @@ export type ThemeId =
   | "dark"
   | "midnight"
   | "beach"
-  | "choco"
-  | "moomoo"
   | "bowser"
-  | "yoshi";
+  | "yoshi"
+  | "terminal";
 
 export interface Theme {
   id: ThemeId;
@@ -44,16 +43,6 @@ export const THEMES: Theme[] = [
     swatches: ["#ff9d00", "#bae8e8", "#e3f6f5", "#a9c4c3", "#272343"],
   },
   {
-    id: "choco",
-    name: "Choco Mountain",
-    swatches: ["#f3ab87", "#e78fb3", "#271c19", "#8a6f67", "#fffffe"],
-  },
-  {
-    id: "moomoo",
-    name: "Moo Moo Farm",
-    swatches: ["#f582ae", "#8bd3dd", "#f3d2c1", "#c9a892", "#172c66"],
-  },
-  {
     id: "bowser",
     name: "Bowser's Castle",
     swatches: ["#7f5af0", "#2cb67d", "#383a61", "#7a7c9c", "#fffffe"],
@@ -62,6 +51,13 @@ export const THEMES: Theme[] = [
     id: "yoshi",
     name: "Yoshi Valley",
     swatches: ["#99c221", "#e55812", "#e8e0d9", "#a8a097", "#41474c"],
+  },
+  {
+    // Internal id stays "terminal" for legacy reasons, but the display name is "Pip-Boy"
+    // (initially it was a "terminal" simply theme with green text on black background)
+    id: "terminal",
+    name: "Pip-Boy",
+    swatches: ["#4af07a", "#9bffb0", "#0a0f0a", "#2f6b43", "#c8ffd6"],
   },
 ];
 
@@ -77,10 +73,9 @@ export const FAVICON_COLORS: Record<ThemeId, { bg: string; fg: string; dot: stri
   dark:    { bg: "#2b3337", fg: "#fdf8f2", dot: "#e8743b" },
   midnight:{ bg: "#1b2540", fg: "#eaf1ff", dot: "#5fb8ff" },
   beach:   { bg: "#e3f6f5", fg: "#272343", dot: "#ff9d00" },
-  choco:   { bg: "#3a2a24", fg: "#fffffe", dot: "#f3ab87" },
-  moomoo:  { bg: "#fff9ee", fg: "#172c66", dot: "#f582ae" },
   bowser:  { bg: "#1f1638", fg: "#fffffe", dot: "#7f5af0" },
   yoshi:   { bg: "#f1ede4", fg: "#41474c", dot: "#99c221" },
+  terminal:{ bg: "#0a0f0a", fg: "#4af07a", dot: "#9bffb0" },
 };
 
 export function buildFaviconDataUrl(id: ThemeId): string {

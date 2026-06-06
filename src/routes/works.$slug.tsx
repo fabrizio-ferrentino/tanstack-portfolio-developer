@@ -119,7 +119,7 @@ function WorkDetail() {
       <section className="container-prose pt-12 sm:pt-20">
         <Link
           to="/works"
-          className="font-mono-tight text-xs uppercase tracking-[0.22em] text-foreground/60 hover:text-primary transition-colors"
+          className="term-logo font-mono-tight text-xs uppercase tracking-[0.22em] text-foreground/60 hover:text-primary transition-colors"
         >
           {t("works.allWorks")}
         </Link>
@@ -134,7 +134,7 @@ function WorkDetail() {
           {work.title}
         </h1>
 
-        <p className="mt-6 max-w-2xl text-lg sm:text-xl leading-snug text-foreground/80 text-pretty">
+        <p className="kicker mt-6 max-w-2xl text-lg sm:text-xl leading-snug text-foreground/80 text-pretty">
           {work.description}
         </p>
       </section>
@@ -173,7 +173,7 @@ function WorkDetail() {
       <section className="container-prose mt-16 grid gap-12 lg:grid-cols-[1fr_18rem]">
         <div className="prose-body space-y-6 text-lg leading-relaxed text-foreground/85">
           {work.body.map((p, i) => (
-            <p key={i} className="text-pretty">
+            <p key={i} className="kicker text-pretty">
               {p}
             </p>
           ))}
@@ -197,13 +197,13 @@ function WorkDetail() {
               <dt className="text-xs uppercase tracking-[0.18em] text-foreground/50 mb-2">
                 {t("works.year")}
               </dt>
-              <dd className="text-foreground">{work.year}</dd>
+              <dd className="kicker text-foreground">{work.year}</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.18em] text-foreground/50 mb-2">
                 {t("works.role")}
               </dt>
-              <dd className="text-foreground">{work.role}</dd>
+              <dd className="kicker text-foreground">{work.role}</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.18em] text-foreground/50 mb-3">
@@ -213,7 +213,7 @@ function WorkDetail() {
                 {work.stack.map((s) => (
                   <span
                     key={s}
-                    className="rounded-full border border-border px-3 py-1 text-xs text-foreground/75"
+                    className="term-chip rounded-full border border-border px-3 py-1 text-xs text-foreground/75"
                   >
                     {s}
                   </span>
@@ -231,7 +231,7 @@ function WorkDetail() {
                       href={work.liveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs text-foreground/75 transition-colors hover:border-primary hover:text-primary w-fit"
+                      className="term-link inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs text-foreground/75 transition-colors hover:border-primary hover:text-primary w-fit"
                     >
                       <ExternalLink size={13} />
                       {t("works.livePreview")}
@@ -242,7 +242,7 @@ function WorkDetail() {
                       href={work.repoUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs text-foreground/75 transition-colors hover:border-primary hover:text-primary w-fit"
+                      className="term-link inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs text-foreground/75 transition-colors hover:border-primary hover:text-primary w-fit"
                     >
                       <Github size={13} />
                       {t("works.viewCode")}
@@ -267,7 +267,7 @@ function WorkDetail() {
               <span className="font-mono-tight text-xs uppercase tracking-[0.18em] text-foreground/50">
                 {t("works.previous")}
               </span>
-              <span className="mt-2 block font-display text-2xl tracking-tight group-hover:text-primary transition-colors">
+              <span className="term-brackets mt-2 block font-display text-2xl tracking-tight group-hover:text-primary transition-colors">
                 {prev.title}
               </span>
             </Link>
@@ -283,7 +283,7 @@ function WorkDetail() {
               <span className="font-mono-tight text-xs uppercase tracking-[0.18em] text-foreground/50">
                 {t("works.next")}
               </span>
-              <span className="mt-2 block font-display text-2xl tracking-tight group-hover:text-primary transition-colors">
+              <span className="term-brackets mt-2 block font-display text-2xl tracking-tight group-hover:text-primary transition-colors">
                 {next.title}
               </span>
             </Link>

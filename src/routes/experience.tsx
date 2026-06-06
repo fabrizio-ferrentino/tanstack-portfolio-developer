@@ -26,13 +26,13 @@ function ExperiencePage() {
   return (
     <>
       <section className="container-prose pt-10 sm:pt-16 pb-12 max-w-3xl">
-        <p className="font-mono-tight text-sm uppercase tracking-[0.2em] text-primary mb-4">
+        <p className="kicker font-mono-tight text-sm uppercase tracking-[0.2em] text-primary mb-4">
           {t("experience.kicker")}
         </p>
         <h1 className="font-display text-5xl sm:text-6xl text-balance">
           {t("experience.title")}
         </h1>
-        <p className="mt-6 text-lg text-foreground/75 leading-relaxed text-pretty">
+        <p className="kicker mt-6 text-lg text-foreground/75 leading-relaxed text-pretty">
           {t("experience.lede")}
         </p>
       </section>
@@ -76,7 +76,7 @@ function JobItem({ job }: { job: Job }) {
         </a>
       </h2>
 
-      <p className="mt-4 text-foreground/80 leading-relaxed text-pretty max-w-3xl">
+      <p className="kicker mt-4 text-foreground/80 leading-relaxed text-pretty max-w-3xl">
         {j.description}
       </p>
 
@@ -105,7 +105,7 @@ function JobItem({ job }: { job: Job }) {
             {j.technologies.map((tech) => (
               <li
                 key={tech}
-                className="font-mono-tight text-xs px-3 py-1 rounded-full border border-border text-foreground/75"
+                className="term-chip font-mono-tight text-xs px-3 py-1 rounded-full border border-border text-foreground/75"
               >
                 {tech}
               </li>

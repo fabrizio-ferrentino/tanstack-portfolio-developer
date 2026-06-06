@@ -51,13 +51,13 @@ function WorksIndex() {
   return (
     <>
       <section className="container-prose pt-16 sm:pt-24 pb-12">
-        <p className="font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-6">
+        <p className="kicker font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-6">
           {t("works.kicker")} · {works.length}
         </p>
         <h1 className="font-display text-[clamp(2.6rem,7vw,5.5rem)] leading-[1.02] tracking-[-0.02em] font-medium text-balance">
           {t("works.title")}<span className="text-primary">.</span>
         </h1>
-        <p className="mt-8 max-w-2xl text-lg sm:text-xl leading-snug text-foreground/80 text-pretty">
+        <p className="kicker mt-8 max-w-2xl text-lg sm:text-xl leading-snug text-foreground/80 text-pretty">
           {t("works.lede")}
         </p>
       </section>
@@ -94,7 +94,7 @@ function WorkRow({ work }: { work: Work }) {
     <Link
       to="/works/$slug"
       params={{ slug: work.slug }}
-      className="group grid grid-cols-[5.5rem_1fr] lg:grid-cols-[7rem_1fr_8rem] gap-5 lg:gap-8 items-start py-6 sm:py-8 border-b border-border/70 last:border-b-0 transition-colors duration-300 hover:bg-foreground/[0.025] -mx-3 px-3 rounded-sm"
+      className="term-row group grid grid-cols-[5.5rem_1fr] lg:grid-cols-[7rem_1fr_8rem] gap-5 lg:gap-8 items-start py-6 sm:py-8 border-b border-border/70 last:border-b-0 transition-colors duration-300 hover:bg-foreground/[0.025] -mx-3 px-3 rounded-sm"
     >
       {/* Year */}
       <div className="pt-2 font-mono-tight text-xs sm:text-sm uppercase tracking-[0.18em] text-primary tabular-nums">
@@ -112,7 +112,7 @@ function WorkRow({ work }: { work: Work }) {
             →
           </span>
         </h3>
-        <p className="mt-2.5 max-w-2xl text-foreground/70 leading-relaxed text-pretty line-clamp-2">
+        <p className="kicker mt-2.5 max-w-2xl text-foreground/70 leading-relaxed text-pretty line-clamp-2">
           {work.description}
         </p>
         <p className="mt-3 font-mono-tight text-xs uppercase tracking-[0.14em] text-foreground/50">

@@ -31,7 +31,7 @@ function HomePage() {
   return (
     <>
       <section id="main" className="container-prose pt-16 sm:pt-28 pb-20">
-        <p className="font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-8">
+        <p className="kicker font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-8">
           {t("home.hello")}
         </p>
 
@@ -40,7 +40,7 @@ function HomePage() {
         </h1>
 
         <div className="mt-10 max-w-2xl text-xl sm:text-2xl leading-snug text-foreground/85 text-pretty">
-          <p>
+          <p className="kicker">
             {t("home.introA")}{" "}
             <a
               href={site.companyUrl}
@@ -53,7 +53,7 @@ function HomePage() {
             {t("home.introB")}{" "}
             <span className="text-primary">{t("home.italy")}</span>.
           </p>
-          <p className="mt-3">
+          <p className="kicker mt-3">
             {t("home.introC")}{" "}
             <Link to="/about" className="link-underline text-foreground">
               {t("home.aboutPage")}
@@ -74,7 +74,7 @@ function HomePage() {
           </h2>
           <Link
             to="/works"
-            className="font-mono-tight text-sm text-foreground/70 hover:text-primary transition-colors lowercase"
+            className="term-logo font-mono-tight text-sm text-foreground/70 hover:text-primary transition-colors lowercase"
           >
             {t("home.seeAll")}
           </Link>
@@ -91,7 +91,7 @@ function HomePage() {
         <div className="mt-10 flex justify-center sm:hidden">
           <Link
             to="/works"
-            className="font-mono-tight text-sm lowercase text-foreground/80 hover:text-primary transition-colors border-b border-border pb-1"
+            className="term-logo font-mono-tight text-sm lowercase text-foreground/80 hover:text-primary transition-colors border-b border-border pb-1"
           >
             {t("home.seeAll")}
           </Link>

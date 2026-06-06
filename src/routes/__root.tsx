@@ -9,7 +9,7 @@ function NotFoundComponent() {
   const { t } = useI18n();
   return (
     <section className="container-prose pt-24 pb-32 text-center">
-      <p className="font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-6">
+      <p className="kicker font-mono-tight text-sm uppercase tracking-[0.22em] text-primary mb-6">
         {t("notFound.kicker")}
       </p>
       <h1 className="font-display text-5xl sm:text-6xl tracking-tight">

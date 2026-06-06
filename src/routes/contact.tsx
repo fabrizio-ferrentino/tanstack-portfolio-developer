@@ -47,7 +47,7 @@ function ContactPage() {
   return (
     <>
       <section className="container-prose pt-10 sm:pt-16 pb-24 max-w-3xl">
-        <p className="font-mono-tight text-sm uppercase tracking-[0.2em] text-primary mb-4">
+        <p className="kicker font-mono-tight text-sm uppercase tracking-[0.2em] text-primary mb-4">
           {t("contact.kicker")}
         </p>
         <h1 className="font-display text-5xl sm:text-6xl text-balance">
@@ -64,7 +64,7 @@ function ContactPage() {
                 href={l.href}
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
-                className="group flex items-center justify-between gap-6 py-5 sm:py-6 hover:text-primary transition-colors"
+                className="sm:p-6 term-row group flex items-center justify-between gap-6 py-5 sm:py-6 hover:text-primary transition-colors"
               >
                 <div className="min-w-0">
                   <p className="font-mono-tight text-xs uppercase tracking-[0.2em] text-muted-foreground group-hover:text-primary/70">

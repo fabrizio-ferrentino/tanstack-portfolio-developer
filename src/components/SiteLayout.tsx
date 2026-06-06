@@ -141,7 +141,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="flex items-center justify-between gap-6">
           <Link
             to="/"
-            className="font-display text-2xl tracking-tight hover:text-primary transition-colors"
+            className="term-logo font-display text-2xl tracking-tight hover:text-primary transition-colors"
           >
             {site.name.split(" ")[0]}<span className="text-primary">.</span>
           </Link>
@@ -165,6 +165,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                       if (el) linkRefs.current.set(item.to, el);
                       else linkRefs.current.delete(item.to);
                     }}
+                    data-active={active ? "true" : undefined}
                     className={
                       "relative pb-2 inline-flex items-baseline transition-colors " +
                       (active
@@ -181,7 +182,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <span
                 aria-hidden="true"
                 className={
-                  "pointer-events-none absolute bottom-0 left-0 h-[2px] w-6 bg-primary " +
+                  "nav-underline pointer-events-none absolute bottom-0 left-0 h-[2px] w-6 bg-primary " +
                   (animEnabled
                     ? "transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]"
                     : "")
@@ -241,7 +242,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           aria-modal="true"
         >
           <div className="flex items-center justify-between px-6 pt-8 pb-4">
-            <span className="font-mono-tight text-xs uppercase tracking-widest text-muted-foreground">
+            <span className="kicker font-mono-tight text-xs uppercase tracking-widest text-muted-foreground">
               {t("nav.menu")}
             </span>
             <button
@@ -254,7 +255,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </button>
           </div>
 
-          <nav className="flex-1 px-6 pt-4 pb-10 flex flex-col gap-2">
+          <nav className="term-menu flex-1 px-6 pt-4 pb-10 flex flex-col gap-2">
             {NAV.map((item, i) => {
               const active = isActive(pathname, item);
               const num = String(i + 1).padStart(2, "0");
@@ -263,6 +264,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   key={item.to}
                   to={item.to}
                   onClick={() => setOpen(false)}
+                  data-active={active ? "true" : undefined}
                   className={
                     "group flex items-baseline gap-4 py-3 border-b border-border/60 transition-colors " +
                     (active
@@ -273,7 +275,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   <span className="font-mono-tight text-xs text-muted-foreground tabular-nums w-6">
                     {num}
                   </span>
-                  <span className="font-display text-3xl tracking-tight leading-none">
+                  <span className="term-menu-label font-display text-3xl tracking-tight leading-none">
                     {t(item.labelKey as TKey)}
                   </span>
                   {active && (
@@ -284,7 +286,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             })}
           </nav>
 
-          <div className="px-6 pb-8 text-xs font-mono-tight text-muted-foreground">
+          <div className="kicker px-6 pb-8 text-xs font-mono-tight text-muted-foreground">
             © {new Date().getFullYear()} {site.name}
           </div>
         </div>
@@ -299,7 +301,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-muted-foreground font-mono-tight">
             {/* Left side */}
             <div className="flex flex-col items-center gap-1 md:flex-row md:items-center md:gap-2 md:flex-wrap md:justify-start">
-              <span>© {new Date().getFullYear()} {site.name}</span>
+              <span className="kicker">© {new Date().getFullYear()} {site.name}</span>
               <span className="hidden sm:inline">·</span>
               <Link
                 to="/privacy"
@@ -310,20 +312,20 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <span className="hidden sm:inline">·</span>
               <div className="flex items-center gap-1.5">
                 <span>Made with</span>
-                <Heart className="w-4 h-4 text-red-500 fill-current" />
+                <Heart className="footer-emote w-4 h-4 text-red-500 fill-current" />
                 <span>and</span>
-                <Coffee className="w-4 h-4 text-amber-600" />
+                <Coffee className="footer-emote w-4 h-4 text-amber-600" />
               </div>
             </div>
 
             {/* Right side */}
             <div className="flex items-center gap-3">
-              <span>Built with TanStack & React</span>
+              <span className="kicker ">Built with TanStack & Tailwind</span>
               <a
                 href={site.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 text-muted-foreground hover:text-foreground transition-colors"
+                className="term-logo ml-2 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="w-5 h-5" />

@@ -40,8 +40,6 @@ export const DICT = {
       closeMenu: "Close menu",
     },
     footer: {
-      tagline: "Built with care, coffee & TanStack.",
-      location: "San Francisco, CA",
       privacy: "Privacy Policy",
     },
     privacy: {
@@ -97,7 +95,6 @@ export const DICT = {
       previous: "← Previous",
       next: "Next →",
       visitProject: "Visit project",
-      gallery: "Gallery",
       groupWork: "At work",
       groupPersonal: "Personal & side projects",
       notFoundKicker: "404 · Lost in the archive",
@@ -142,8 +139,6 @@ export const DICT = {
       closeMenu: "Chiudi menu",
     },
     footer: {
-      tagline: "Fatto con cura, caffè & TanStack.",
-      location: "San Francisco, CA",
       privacy: "Privacy Policy",
     },
     privacy: {
@@ -199,7 +194,6 @@ export const DICT = {
       previous: "← Precedente",
       next: "Successivo →",
       visitProject: "Visita il progetto",
-      gallery: "Galleria",
       groupWork: "Lavoro",
       groupPersonal: "Progetti personali",
       notFoundKicker: "404 · Perso nell'archivio",

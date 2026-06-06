@@ -27,7 +27,7 @@ function AboutPage() {
   return (
     <>
       <section className="container-prose pt-10 sm:pt-16 pb-24 max-w-3xl">
-        <p className="font-mono-tight text-sm uppercase tracking-[0.2em] text-primary mb-4">
+        <p className="kicker font-mono-tight text-sm uppercase tracking-[0.2em] text-primary mb-4">
           {t("about.kicker")}
         </p>
         <h1 className="font-display text-5xl sm:text-6xl text-balance">
@@ -42,10 +42,10 @@ function AboutPage() {
             className="w-44 sm:w-[220px] sm:flex-shrink-0 aspect-square object-cover rounded-2xl border border-border shadow-md"
           />
           <div className="flex-1 min-w-0 space-y-6 text-lg leading-relaxed text-foreground/85 text-pretty">
-            <p>{t("about.p1")}</p>
-            <p>{t("about.p2")}</p>
-            <p>{t("about.p3")}</p>
-            <p>{t("about.p4")}</p>
+            <p className="kicker">{t("about.p1")}</p>
+            <p className="kicker">{t("about.p2")}</p>
+            <p className="kicker">{t("about.p3")}</p>
+            <p className="kicker">{t("about.p4")}</p>
           </div>
         </div>
 
