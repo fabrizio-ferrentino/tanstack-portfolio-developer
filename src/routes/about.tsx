@@ -31,7 +31,7 @@ function AboutPage() {
           {t("about.kicker")}
         </p>
         <h1 className="font-display text-5xl sm:text-6xl text-balance">
-          {t("about.title")}
+          {t("about.title")}<span className="text-primary">.</span>
         </h1>
 
         <div className="mt-10 flex flex-col sm:flex-row sm:items-start gap-8 sm:gap-10">

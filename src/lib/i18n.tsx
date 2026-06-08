@@ -60,7 +60,7 @@ export const DICT = {
     },
     about: {
       kicker: "About",
-      title: "A few words about me.",
+      title: "A few words about me",
       p1: "I'm a Software Developer based in San Francisco. I hold a Computer Science degree (2022) and have been writing code — for school, for work, and for fun — for as long as I can remember.",
       p2: "Today I work at TechCorp on web and cloud platforms, contributing across the stack: from React frontends and Node.js backends, to REST APIs, database design, and cloud deployments. I genuinely enjoy the moment a UI, a backend service, and an API all start working together.",
       p3: "What I've learned shipping production software is that the gap between \"works locally\" and \"works reliably at scale\" is where most of the real engineering happens. That's shaped how I think about code: less about what looks clever, more about what holds up.",
@@ -74,7 +74,7 @@ export const DICT = {
     },
     experience: {
       kicker: "Experience",
-      title: "My professional journey in software development.",
+      title: "My professional journey in software development",
       lede: "A timeline of the places I've worked, the things I've built and the lessons I picked up along the way.",
       keyAchievements: "Key Achievements",
       technologies: "Technologies",
@@ -106,7 +106,7 @@ export const DICT = {
     },
     contact: {
       kicker: "Contact",
-      title: "Say hi — I read every message.",
+      title: "Say hi — I read every message",
       lede: "Email is the surest way to reach me, but I'm also around on the usual platforms. Whether it's a project, an idea, or just a hello — go ahead, my inbox doesn't bite.",
       links: {
         emailNote: "Send me an email anytime",
@@ -159,7 +159,7 @@ export const DICT = {
     },
     about: {
       kicker: "Chi sono",
-      title: "Due parole su di me.",
+      title: "Due parole su di me",
       p1: "Sono un Software Developer con base a San Francisco. Mi sono laureato in Informatica (2022) e scrivo codice — per studio, per lavoro e per passione — da quando ne ho memoria.",
       p2: "Oggi lavoro in TechCorp su piattaforme web e cloud, contribuendo a tutto lo stack: frontend React, backend Node.js, API REST, progettazione di database e deployment in cloud. Mi piace particolarmente quel momento in cui una UI, un servizio backend e un'API iniziano davvero a funzionare insieme.",
       p3: "Realizzare software in produzione mi ha insegnato che il divario tra \"funziona in locale\" e \"funziona in modo affidabile in produzione\" è dove si fa la vera ingegneria. Questo ha cambiato il mio approccio al codice: meno attenzione a ciò che sembra intelligente, più a ciò che regge nel tempo.",
@@ -173,7 +173,7 @@ export const DICT = {
     },
     experience: {
       kicker: "Esperienza",
-      title: "Il mio percorso professionale nello sviluppo software.",
+      title: "Il mio percorso professionale nello sviluppo software",
       lede: "Una timeline dei posti dove ho lavorato, delle cose che ho costruito e delle lezioni imparate strada facendo.",
       keyAchievements: "Risultati chiave",
       technologies: "Tecnologie",
@@ -205,7 +205,7 @@ export const DICT = {
     },
     contact: {
       kicker: "Contatti",
-      title: "Scrivimi — leggo ogni messaggio.",
+      title: "Scrivimi — leggo ogni messaggio",
       lede: "L'email è il modo più sicuro per raggiungermi, ma sono anche sulle solite piattaforme. Che sia un progetto, un'idea o un semplice saluto — vai pure, la mia inbox non morde.",
       links: {
         emailNote: "Mandami un'email quando vuoi",
@@ -265,15 +265,14 @@ function readStoredLang(): Lang {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(DEFAULT_LANG);
+  const [lang, setLangState] = useState<Lang>(() => readStoredLang());
 
   useEffect(() => {
-    const stored = readStoredLang();
-    setLangState(stored);
+    // Safety net: ensure <html lang> matches state if boot script didn't run
     if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("lang", stored);
+      document.documentElement.setAttribute("lang", lang);
     }
-  }, []);
+  }, [lang]);
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);

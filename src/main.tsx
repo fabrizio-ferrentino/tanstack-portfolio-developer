@@ -6,7 +6,11 @@ import { Analytics } from '@vercel/analytics/react'
 import { routeTree } from './routeTree.gen'
 import './styles.css'
 
-const router = createRouter({ routeTree })
+const router = createRouter({
+  routeTree,
+  scrollRestoration: true,
+  defaultPreloadStaleTime: 0,
+})
 
 declare module '@tanstack/react-router' {
   interface Register {

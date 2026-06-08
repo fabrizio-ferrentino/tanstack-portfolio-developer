@@ -30,7 +30,7 @@ function ExperiencePage() {
           {t("experience.kicker")}
         </p>
         <h1 className="font-display text-5xl sm:text-6xl text-balance">
-          {t("experience.title")}
+          {t("experience.title")}<span className="text-primary">.</span>
         </h1>
         <p className="kicker mt-6 text-lg text-foreground/75 leading-relaxed text-pretty">
           {t("experience.lede")}

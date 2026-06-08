@@ -100,5 +100,4 @@ function HomePage() {
     </>
   );
 }
-void site;
 

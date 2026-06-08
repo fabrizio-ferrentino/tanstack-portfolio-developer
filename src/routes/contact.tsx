@@ -51,7 +51,7 @@ function ContactPage() {
           {t("contact.kicker")}
         </p>
         <h1 className="font-display text-5xl sm:text-6xl text-balance">
-          {t("contact.title")}
+          {t("contact.title")}<span className="text-primary">.</span>
         </h1>
         <p className="mt-6 text-lg text-foreground/80 leading-relaxed text-pretty">
           {t("contact.lede")}
@@ -67,13 +67,13 @@ function ContactPage() {
                 className="sm:p-6 term-row group flex items-center justify-between gap-6 py-5 sm:py-6 hover:text-primary transition-colors"
               >
                 <div className="min-w-0">
-                  <p className="font-mono-tight text-xs uppercase tracking-[0.2em] text-muted-foreground group-hover:text-primary/70">
+                  <p className="kicker font-mono-tight text-xs uppercase tracking-[0.2em] text-muted-foreground group-hover:text-primary/70">
                     {l.label}
                   </p>
                   <p className="font-display text-2xl sm:text-3xl mt-1 truncate">
                     {l.value}
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">{l.note}</p>
+                  <p className="kicker text-sm text-muted-foreground mt-1">{l.note}</p>
                 </div>
                 <span
                   aria-hidden
