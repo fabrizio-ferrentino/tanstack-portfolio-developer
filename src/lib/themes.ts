@@ -62,6 +62,7 @@ export const THEMES: Theme[] = [
 ];
 
 export const DEFAULT_THEME: ThemeId = "default";
+export const DARK_THEME: ThemeId = "dark";
 export const THEME_STORAGE_KEY = "theme";
 
 /**

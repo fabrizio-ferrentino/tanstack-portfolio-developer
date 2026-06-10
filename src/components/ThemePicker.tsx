@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Check, Palette, Radiation, X, type LucideIcon } from "lucide-react";
-import { THEMES, THEME_STORAGE_KEY, DEFAULT_THEME, FAVICON_COLORS, buildFaviconDataUrl, type ThemeId } from "@/lib/themes";
+import { THEMES, THEME_STORAGE_KEY, DEFAULT_THEME, DARK_THEME, FAVICON_COLORS, buildFaviconDataUrl, type ThemeId } from "@/lib/themes";
 import { cn } from "@/lib/utils";
 
 /** The "special" Terminal theme breaks the Mario Kart naming pattern, so its
@@ -57,6 +57,7 @@ function readStoredTheme(): ThemeId {
   if (typeof window === "undefined") return DEFAULT_THEME;
   const stored = window.localStorage.getItem(THEME_STORAGE_KEY) as ThemeId | null;
   if (stored && THEMES.some((t) => t.id === stored)) return stored;
+  if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) return DARK_THEME;
   return DEFAULT_THEME;
 }
 
@@ -261,7 +262,7 @@ export function ThemePicker() {
  */
 export const themeBootScript = `(function(){try{var k=${JSON.stringify(
   THEME_STORAGE_KEY,
-)};var d=${JSON.stringify(DEFAULT_THEME)};var t=localStorage.getItem(k)||d;var C=${JSON.stringify(
+)};var d=${JSON.stringify(DEFAULT_THEME)};var dk=${JSON.stringify(DARK_THEME)};var t=localStorage.getItem(k);if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?dk:d;}var C=${JSON.stringify(
   FAVICON_COLORS,
 )};if(t)document.documentElement.setAttribute('data-theme',t);var c=C[t]||C[d];var s="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='"+c.bg+"'/><text x='14' y='46' font-family='Georgia,serif' font-weight='600' font-size='40' fill='"+c.fg+"'>F</text><circle cx='44' cy='46' r='4' fill='"+c.dot+"'/></svg>";var h='data:image/svg+xml;utf8,'+encodeURIComponent(s);var l=document.querySelector("link[rel~='icon']");if(!l){l=document.createElement('link');l.rel='icon';l.type='image/svg+xml';document.head.appendChild(l);}l.href=h;}catch(e){}})();`;
 
